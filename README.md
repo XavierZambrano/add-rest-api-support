@@ -1,30 +1,28 @@
-Explicación cómo hacer que themes, plugins soporten REST API wordpress, la idea la obtuve de:
+Explanation of how to add metadata support in WordPress REST API to themes and plugins, the original idea is:
 
 https://stackoverflow.com/questions/56460557/how-to-include-meta-fields-in-wordpress-api-post
 
-Lo que básicamente hay que hacer es:
-1. Al momento en qué el tipo de post ha sido registrado, si no tiene 
-- 'show_in_rest' true 
-- 'custom-fields' en 'support'
-hay que agregarlo
 
-2. Al momento de registrar los meta fields con register_meta(), 'show_in_rest' debe ser true
+You need to set:
+- 'show_in_rest' true when register_post_type() 
+- 'custom-fields' must be in 'support' when register_post_type()
+- 'show_in_rest' true when register_meta()
 
+When you do these modifications you must think in:
+- Don´t modify directly the theme and/or plugin, because when it updates you lost the modifications
+- Only need to add what you need, only it
 
-Hay que tener un par de cosas en mente:
-- No modificar directamente el theme y/o plugin, porque al momento de recibir actualizaciones
-las modificaciones realizadas desaparecerán
-- Solo es necesario agregar lo que nos interesa, solo eso
-
-En la carpeta examples/ tengo ejemplos de cómo se ha realizado (de momento solo uno pero es posible que agregue más)
+In the folder example/, you can find examples in different themes and plugins, at this moment only exist one example
+but in the future, I can add more 
 
 #### houzez
-Se debe activar el child theme y el child plugin
+You must activate the child theme and child plugin
 
 ##### houzez-child
 path: wp-content/themes
-es el tema hijo de houzez, lo que hace es añadir 'show_in_rest' a los meta fields
+houzez child theme, add 'show_in_rest' in meta fields
+
 
 #### houzez-theme-functionality-child
 path: wp-content/plugins
-es un plugin hijo, lo que hace es añadir 'custom-fields' a 'support'
+child plugin, add 'custom-fields' to support
